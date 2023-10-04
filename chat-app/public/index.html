@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">   
+    <title>Chat App</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <h1 class="title">iChat</h1>
+    <div class="main">
+      <div class="name">
+        <span><i class="far fa-user"></i></span>
+        <input type="text" id="name-input" class="name-input" value="anonymous" maxlength="20"/>
+      </div>
+      <ul class="message-container" id="message-container">
+        <li class="message-left">
+          <p class="message">
+            lorem ipsum
+            <span>bluebird | 03 Oct 04:10</span>
+          </p>
+        </li>
+        <li class="message-right">
+          <p class="message">
+            lorem ipsum
+            <span>bluebird | 03 Oct 04:10</span>
+          </p>
+        </li>
+
+        <li class="message-feedback">
+          <p class="feedback" id="feedback">
+            killer is typing
+          </p>
+        </li>
+
+      </ul>
+
+      <form id="message-form" class="message-form">
+        <input type="text" class="message-input" name="message" id="message-input"/>
+        <div class="v-divider"></div>
+          <button type="submit" class="send-button">
+            send
+            <span><i class="fas fa-paper-plane"></i></span>
+          </button>
+        
+      </form>
+    </div>
+    <h3 class="client-total" id="client-total">Total clients : 2</h3>
+
+    <!-- loading script coming from initialization of socket Server at backend -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+       
+       var socket = io();
+
+            
+    </script>
+</body>
+</html>
