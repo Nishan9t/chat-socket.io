@@ -58,6 +58,10 @@
        
        var socket = io();
 
+       socket.on('clients-total',(data)=>{
+        document.getElementById("client-total").innerHTML ="Total Clients : "+ data;
+       })
+
             
     </script>
 </body>
