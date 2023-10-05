@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">   
     <title>Chat App</title>
@@ -53,7 +54,7 @@
 
     <!-- loading script coming from initialization of socket Server at backend -->
     <script src="/socket.io/socket.io.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
        
        var socket = io();
@@ -76,6 +77,8 @@
          
        
        function sendMessage(){
+
+        if(messageInput.value ==='') return 
         console.log(messageInput.value)
         //create data  json object to send to server
 
@@ -84,13 +87,40 @@
           message:messageInput.value,
           dateTime: new Date()
         }
+        //sending the data to server to broadcast
         socket.emit('message',data)
+        //adding same data to our own ui
+        addMessageToUI(true,data)
+        messageInput.value=''
        }
 
 
        socket.on('chat-message',(data)=>{
-        console.log(data)
+        // console.log(data)
+        addMessageToUI(false,data)
        })
+
+
+       //function to show message
+       function addMessageToUI(isOwnMessage,data){
+        const element=`
+        <li class="${isOwnMessage ? 'message-right':'message-left'}">
+          <p class="message">
+            ${data.message}
+            <span>${data.name} | ${moment(data.dateTime).fromNow()}</span>
+          </p>
+        </li>
+        `
+
+        messageContainer.innerHTML += element
+
+        scrollToBottom()
+       }
+
+
+       function scrollToBottom(){
+        messageContainer.scrollTo(0,messageContainer.scrollHeight)
+       }
 
     </script>
 </body>
